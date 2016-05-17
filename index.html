@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+
+	<body>
+		<pre>
+			<code class="javascript" id="code"></code>
+		</pre>
+
+		<script type="text/javascript">
+			var connection = new WebSocket('ws://localhost:8080/', 'echo-protocol');
+
+			connection.onerror = function (error) {
+				console.log('WebSocket Error ' + error);
+			};
+
+			connection.onopen = function () {
+				var number = Math.round(Math.random() * 0xFFFFFF);
+				connection.send(number.toString());
+			};
+
+			connection.onmessage = function (message) {
+				document.querySelector("code").innerHTML = message.data;
+
+				console.log('Server: ' + message.data);
+			};
+		</script>
+	</body>
+</html>
