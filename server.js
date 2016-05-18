@@ -13,6 +13,9 @@ wss.on('connection', function connection(ws) {
     // you might use location.query.access_token to authenticate or share sessions 
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312) 
  
+    if (ws.protocol != "training")
+        ws.close(1002, 'Not training!');
+
     ws.on('message', function incoming(message) {
         // console.log('received: %s', message);
 
