@@ -2,49 +2,17 @@
 <html>
 	<head>
 		<title>Training input</title>
-		<link rel="stylesheet" href="assets/css/github.min.css">
+		<link rel="stylesheet" href="assets/css/monokai-sublime.min.css">
 		<script src="assets/js/highlight.min.js"></script>
-		<script>
-			hljs.configure({
-				tabReplace: '    ',
-				languages: ['javascript']
-			});
-			hljs.initHighlightingOnLoad();
-		</script>
+		<script src="js/hljs.js"></script>
+		<script src="js/ws.js"></script>
+		<script src="in.js"></script>
 	</head>
 
-	<body>
-		<div>
-			<textarea rows="20" cols="100" id="in" onkeyup="push()">
-				function bootstrap () {
-					var a := 1;
-				}
-			</textarea>
-		</div>
+	<body class="hljs" onload="load()">
+		<textarea class="hljs" rows="20" cols="100" id="in" onkeyup="push()"></textarea>
 		<pre>
 			<code class="javascript" id="code"></code>
 		</pre>
-
-		<script type="text/javascript">
-			var connection = new WebSocket('ws://'+document.location.host+'/', 'echo-protocol');
-
-			connection.onerror = function (error) {
-				console.log('WebSocket Error ' + error);
-			};
-
-			connection.onopen = function () {
-				connection.send(document.getElementById("in").innerHTML);
-			};
-
-			connection.onmessage = function (message) {
-				document.getElementById("code").innerHTML = message.data;
-			};
-
-			function push() {
-				var x = document.getElementById("in");
-
-    			connection.send(x.value);
-			}
-		</script>
 	</body>
 </html>
