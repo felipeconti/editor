@@ -1,13 +1,10 @@
-var code = "function bootstrap () {\n    var a = 1;\n}";
+var editor = ace.edit("editor");
 
-function push() {
-	var x = document.getElementById("in");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/javascript");
 
-	connection.send(x.value);
-}
+editor.getSession().on('change', function(e) {
+    connection.send(editor.getValue());
+});
 
-function load() {
-	document.getElementById("in").innerHTML = code;
-
-	push();
-}
+editor.setValue("function bootstrap () {\n    var a = 1;\n}");
