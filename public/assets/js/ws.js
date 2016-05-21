@@ -6,7 +6,8 @@ connection.onerror = function (error) {
 
 connection.onmessage = function (message) {
 	if (!editor.editing) {
-		editor.setValue(message.data);
-		editor.gotoLine(0);
+		var msg = JSON.parse(message.data);
+		editor.setValue(msg.data);
+		editor.gotoLine(msg.cursor.row+1);
 	}
 };
