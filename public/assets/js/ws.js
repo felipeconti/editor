@@ -5,7 +5,8 @@ connection.onerror = function (error) {
 };
 
 connection.onmessage = function (message) {
-	var code = document.querySelector("code");
-	code.innerHTML = message.data;
-	hljs.highlightBlock(code);
+	if (!editor.editing) {
+		editor.setValue(message.data);
+		editor.gotoLine(0);
+	}
 };
