@@ -1,4 +1,4 @@
-var connection = new WebSocket('ws://'+document.location.host+'/', 'training');
+var connection = new WebSocket('ws://'+document.location.host+'/', 'editor');
 
 connection.onerror = function (error) {
 	console.log('WebSocket Error ' + error);
