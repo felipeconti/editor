@@ -4,7 +4,7 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ server: server });
 var express = require('express');
 var app = express();
-var port = 8080;
+var port = process.env.PORT || process.argv[2] || 8084;
 
 var data;
 
