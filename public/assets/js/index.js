@@ -13,7 +13,7 @@ editor.getSession().setMode("ace/mode/javascript");
 
 editor.getSession().on('change', function(e) {
 	if (editor.editing && connection.readyState == 1) {
-		let msg = {
+		var msg = {
 			data: editor.getValue()
 		}
 		connection.send(JSON.stringify(msg));
@@ -22,7 +22,7 @@ editor.getSession().on('change', function(e) {
 
 editor.getSession().selection.on('changeCursor', function(e) {
 	if (editor.editing && connection.readyState == 1) {
-		let msg = {
+		var msg = {
 			cursor: editor.selection.getCursor()
 		}
 		connection.send(JSON.stringify(msg));
