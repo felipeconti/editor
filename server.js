@@ -6,7 +6,10 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || process.argv[2] || 8084;
 
-var data;
+var msg = {
+	data: "",
+	cursor: {}
+};
 
 app.use(express.static(__dirname + "/public"));
  
@@ -19,10 +22,13 @@ wss.on('connection', function connection(ws) {
 		ws.close(1002, 'Not editor!');
 
 	ws.on('message', function incoming(message) {
-		data = message;
+		let trunk = JSON.parse(message);
+
+		if (trunk.data) msg.data = trunk.data;
+		if (trunk.cursor) msg.cursor = trunk.cursor;
 
 		wss.clients.forEach(function each(client) {
-			client.send(data);
+			client.send(message);
 		});
 	});
 
@@ -30,7 +36,7 @@ wss.on('connection', function connection(ws) {
 		console.log((new Date()) + ' Peer disconnected.');
 	});
 
-	if (data) ws.send(data);
+	if (msg) ws.send(JSON.stringify(msg));
 });
  
 server.on('request', app);

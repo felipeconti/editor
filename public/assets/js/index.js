@@ -15,7 +15,7 @@ editor.getSession().on('change', function(e) {
 	if (editor.editing && connection.readyState == 1) {
 		var msg = {
 			data: editor.getValue()
-		}
+		};
 		connection.send(JSON.stringify(msg));
 	}
 });
@@ -24,7 +24,7 @@ editor.getSession().selection.on('changeCursor', function(e) {
 	if (editor.editing && connection.readyState == 1) {
 		var msg = {
 			cursor: editor.selection.getCursor()
-		}
+		};
 		connection.send(JSON.stringify(msg));
 	}
 });
